@@ -9,7 +9,7 @@ import { BiRename } from "react-icons/bi"
 interface SignupProps {
     handleSignup: () => void
     errors: DeepMap<FieldValues, FieldError>
-    register: UseFormRegister<FieldValues>
+    register: any
 }
 
 export const SignupForm = ({ handleSignup, errors, register }: SignupProps) => (
@@ -38,7 +38,7 @@ export const SignupForm = ({ handleSignup, errors, register }: SignupProps) => (
         />
         <VStack spacing={"1rem"} />
         <Input
-            {...register("Password")}
+            {...register("password")}
             error={errors.password}
             placeholder="Senha"
             name="password"
@@ -54,6 +54,6 @@ export const SignupForm = ({ handleSignup, errors, register }: SignupProps) => (
             icon={Si1Password}
             type="password"
         />
-        <Button colorScheme={"orange"} size={"lg"} >Cadastrar</Button>
+        <Button colorScheme={"orange"} size={"lg"} type="submit" >Cadastrar</Button>
     </Flex>
 )

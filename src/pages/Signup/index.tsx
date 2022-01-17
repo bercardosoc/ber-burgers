@@ -28,19 +28,20 @@ export const Signup = () => {
         name: string;
         email: string;
         password: string;
+        confirmPassword: string
     }
 
     const {
         formState: { errors },
         register,
         handleSubmit,
-    } = useForm({
+    } = useForm <SignUpData> ({
         resolver: yupResolver(signUpSchema)
     })
 
-    const handleSignup = ({ name, email, password }: SignUpData) => {
+    const handleSignup = ({ name, email, password, confirmPassword }: SignUpData) => {
         api
-        .post("/users", {name, email, password})
+        .post("/users", {name, email, password, confirmPassword})
         .then((response) => {
             console.log(response.data)
         })
@@ -57,9 +58,9 @@ export const Signup = () => {
                 <span>Retornar para o login</span>
             </Flex>
             <SignupForm
-            errors={errors}
-            register={register}
-            handleSignup={handleSubmit(handleSignup)}
+                errors={errors}
+                register={register}
+                handleSignup={handleSubmit(handleSignup)}
             />
         </Flex>
     )
