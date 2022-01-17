@@ -16,9 +16,9 @@ type inputVariationOptions = {
 
 const inputVariation: inputVariationOptions = {
     error: "red",
-    default: "black",
-    focus: "orange",
-    filled: "orange",
+    default: "gray.500",
+    focus: "orange.500",
+    filled: "orange.500",
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
@@ -48,12 +48,17 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
     
     return (
         <FormControl isInvalid={!!error}>
-            {!!label && <FormLabel color="black.400">{label}</FormLabel>}
+            {!!label && <FormLabel color="gray.500">{label}</FormLabel>}
             <InputGroup flexDirection={"column"} >
                 {Icon && (
                     <InputLeftElement color={inputVariation[variation]} mt={"2.5"}>
                         <Icon/>
                     </InputLeftElement>
+                )}
+                {!!error && (
+                    <FormErrorMessage color="red.500" marginBottom={"0.2rem"} >
+                        {error.message}
+                    </FormErrorMessage>
                 )}
                 <ChakraInput
                     id={name}
@@ -63,23 +68,18 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
                     onFocus={handleInputFocus}
                     borderColor={inputVariation[variation]}
                     color={inputVariation[variation]}
-                    bg="black.50"
                     variant="filled"
-                    _hover={{ color: "black.100" }}
-                    _placeholder={{ color: "black.300" }}
+                    _hover={{ color: "black" }}
+                    _placeholder={{ color: "gray.500" }}
                     _focus={{
-                        bg: "black.100",
+                        bg: "gray.500",
                     }}
+                    marginBottom={"1rem"}
                     size="lg"
-                    h="60px"
+                    h="3.5rem"
                     ref={ref}
                     {...rest}
                 />
-                {!!error && (
-                    <FormErrorMessage color="red.500">
-                        {error.message}
-                    </FormErrorMessage>
-                )}
             </InputGroup>
         </FormControl>
     )
