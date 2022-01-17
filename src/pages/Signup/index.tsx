@@ -70,7 +70,7 @@ export const Signup = () => {
                 justifyContent={"space-around"}
                 marginBottom={"1.5rem"} >
                 <Heading as="h1" >Cadastro</Heading>
-                <span onClick={() => history.push("/login")}>Retornar para o login</span>
+                <span onClick={() => history.push("/signin")}>Retornar para o login</span>
             </Flex>
             <SignupForm
                 errors={errors}
