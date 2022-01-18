@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import { useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import { BsCart4 } from "react-icons/bs"
@@ -6,12 +6,16 @@ import { FiLogOut } from "react-icons/fi"
 import Badge from "@material-ui/core/Badge";
 import { SearchBar } from "../../components/SearchBar"
 import { Products } from "../../components/Dashboard/Products"
+import { useCart } from "../../providers/Cart"
 
 export const Dashboard = () => {
-    
-    const [itemCount, setItemCount] = useState(1)
+
+    const { cart } = useCart()
+
+    const [cartContent, setCartContent] = useState(1)
 
     const [searchBar, setSearchBar] = useState(false)
+
 
     return (
         <>
@@ -28,7 +32,7 @@ export const Dashboard = () => {
                 <BsSearch 
                     onClick={() => setSearchBar(true)}
                 />
-                <Badge color="secondary" badgeContent={itemCount}  >
+                <Badge color="secondary" badgeContent={cartContent}  >
                     <BsCart4/>{""}
                 </Badge>
                 <FiLogOut/>

@@ -1,4 +1,5 @@
-import { Flex, Image, Text } from "@chakra-ui/react"
+import { Button, Flex, Image, Text } from "@chakra-ui/react"
+import { AddIcon } from "@chakra-ui/icons"
 
 interface Product {
     id: number
@@ -14,7 +15,13 @@ export const Card = ( product: Product) => {
             <Text>{product.name}</Text>
             <Image src={product.img} boxSize={"100px"} />
             <Text>{product.category}</Text>
-            <Text>{product.price}</Text>
+            <Text>{product.price.toFixed(2)}</Text>
+            <Button
+                rightIcon={<AddIcon/>}
+                color={"white"}
+                bgColor={"orange.500"}>
+                    Adicionar
+            </Button>
         </Flex>
     )
 }
