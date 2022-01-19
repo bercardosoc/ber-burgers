@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react"
+import { Flex, Image, useDisclosure } from "@chakra-ui/react"
 import { useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import { BsCart4 } from "react-icons/bs"
@@ -7,16 +7,23 @@ import Badge from "@material-ui/core/Badge";
 import { SearchBar } from "../../components/SearchBar"
 import { Products } from "../../components/Dashboard/Products"
 import { useCart } from "../../providers/Cart"
+import { useAuth } from "../../providers/Auth"
+import { CartModal } from "../../components/CartModal"
+import Woman from "../../assets/woman.png"
 
 export const Dashboard = () => {
 
     const { cart } = useCart()
 
+    const { signOut } = useAuth()
+
     const [searchBar, setSearchBar] = useState(false)
 
+    const { isOpen, onClose, onOpen } = useDisclosure()
 
     return (
         <>
+        <CartModal isOpen={isOpen} onClose={onClose} />
         <Flex
             bg={"gray.500"}
             height={"3rem"}
@@ -30,10 +37,10 @@ export const Dashboard = () => {
                 <BsSearch 
                     onClick={() => setSearchBar(true)}
                 />
-                <Badge color="secondary" badgeContent={cart.length}  >
-                    <BsCart4/>{""}
+                <Badge color="secondary" badgeContent={cart.length}>
+                    <BsCart4 onClick={onOpen} />{""}
                 </Badge>
-                <FiLogOut/>
+                <FiLogOut onClick={signOut} />
                 </Flex>
                )
            }
@@ -54,6 +61,7 @@ export const Dashboard = () => {
         >
             <Products/>
         </Flex>
+        <Image src={Woman} />
         </>
     )
 }

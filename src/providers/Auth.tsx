@@ -49,8 +49,8 @@ import {
   
   const AuthProvider = ({ children }: AuthProviderProps) => {
     const [data, setData] = useState<AuthState>(() => {
-      const accessToken = localStorage.getItem("@Doit:accessToken");
-      const user = localStorage.getItem("@Doit:user");
+      const accessToken = localStorage.getItem("@Ber:accessToken");
+      const user = localStorage.getItem("@Ber:user");
   
       if (accessToken && user) {
         return { accessToken, user: JSON.parse(user) };
@@ -64,15 +64,15 @@ import {
   
       const { accessToken, user } = response.data;
   
-      localStorage.setItem("@Doit:accessToken", accessToken);
-      localStorage.setItem("@Doit:user", JSON.stringify(user));
+      localStorage.setItem("@Ber:accessToken", accessToken);
+      localStorage.setItem("@Ber:user", JSON.stringify(user));
   
       setData({ accessToken, user });
     }, []);
   
     const signOut = useCallback(() => {
-      localStorage.removeItem("@Doit:accessToken");
-      localStorage.removeItem("@Doit:user");
+      localStorage.removeItem("@Ber:accessToken");
+      localStorage.removeItem("@Ber:user");
   
       setData({} as AuthState);
     }, []);

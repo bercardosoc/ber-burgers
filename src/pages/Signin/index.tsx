@@ -60,8 +60,8 @@ export const Signin = () => {
                 alignItems={"center"} 
                 justifyContent={"space-around"}
                 marginBottom={"1.5rem"} >
-                <Heading as="h1" >Cadastro</Heading>
-                <span onClick={() => history.push("/")}>Retornar para o cadastro</span>
+                <Heading as="h1" >Login</Heading>
+                <span onClick={() => history.push("/")}>Retornar para o Login</span>
             </Flex>
             <SigninForm
                 errors={errors}
