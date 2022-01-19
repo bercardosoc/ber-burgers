@@ -12,8 +12,6 @@ export const Dashboard = () => {
 
     const { cart } = useCart()
 
-    const [cartContent, setCartContent] = useState(1)
-
     const [searchBar, setSearchBar] = useState(false)
 
 
@@ -32,7 +30,7 @@ export const Dashboard = () => {
                 <BsSearch 
                     onClick={() => setSearchBar(true)}
                 />
-                <Badge color="secondary" badgeContent={cartContent}  >
+                <Badge color="secondary" badgeContent={cart.length}  >
                     <BsCart4/>{""}
                 </Badge>
                 <FiLogOut/>

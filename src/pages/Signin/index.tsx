@@ -2,13 +2,20 @@ import { Box, Flex, Heading } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { api } from "../../services/api"
 import { SigninForm } from "./SigninForm"
 import { Logo } from "../../components/Logo"
 import { RiShoppingBag3Line } from "react-icons/ri"
 import { useHistory } from "react-router-dom"
+import { useAuth } from "../../providers/Auth"
+
+interface SigninData {
+    email: string;
+    password: string;
+}
 
 export const Signin = () => {
+
+    const { signIn } = useAuth()
 
     const SigninSchema = yup.object().shape({
         email: yup
@@ -20,11 +27,6 @@ export const Signin = () => {
         .required("Senha obrigatória")
     })
 
-    interface SigninData {
-        email: string;
-        password: string;
-    }
-
     const {
         formState: { errors },
         register,
@@ -33,11 +35,9 @@ export const Signin = () => {
         resolver: yupResolver(SigninSchema)
     })
 
-    const handleSignin = ({ email, password }: SigninData) => {
-        api
-        .post("/login", { email, password })
-        .then((response) => {
-            console.log(response.data)
+    const handleSignin = (data: SigninData) => {
+        signIn(data)
+        .then((_) => {
         })
         .catch((err) => {
             console.log(err)

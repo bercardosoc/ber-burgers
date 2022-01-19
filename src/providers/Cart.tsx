@@ -1,5 +1,9 @@
 import { createContext, ReactNode, useContext, useState } from "react"
 
+interface CartProviderProps {
+    children: ReactNode
+}
+
 interface Product {
     id: number
     name: string
@@ -8,35 +12,31 @@ interface Product {
     img: string
 }
 
-interface CartProviderProps {
-    children: ReactNode
-}
-
-interface CartProviderData {
+interface CartContextData {
     cart: Product[]
     addToCart: (product: Product) => void
-    //deleteFromCart: (product: Product) => void 
+    removeFromCart: (product: Product) => void
 }
 
-const CartContext = createContext<CartProviderData>(
-    {} as CartProviderData
-)
+const CartContext = createContext<CartContextData>({} as CartContextData)
 
 export const CartProvider = ({children}: CartProviderProps) => {
-    const [cart, setCart] = useState<Product[]>([])
+    
+    const [cart, setCart] = useState <Product[]> ([])
 
     const addToCart = (product: Product): void => {
-        setCart([...cart, product])
+        setCart((oldState) => [...oldState, product])
     }
 
-    // const removeFromCart = (product: Product): void => {
-    //     const removed = cart.find((item) => item.id === product.id)
-    //     const removedIndex = cart.indexOf(removed) 
-    //     cart.splice(removedIndex, 1)
-    //     setCart([...cart])
-    // }
+    const removeFromCart = (product: Product): void => {
+        // const removed = cart.find((item) => item.id === product.id)
+        // const removedIndex = cart.indexOf(removed)
+        // cart.splice(removedIndex, 1)
+        // setCart([...cart])
+    }
+
     return (
-        <CartContext.Provider value={{addToCart, cart,}} >
+        <CartContext.Provider value={{cart, addToCart, removeFromCart}} >
             {children}
         </CartContext.Provider>
     )
