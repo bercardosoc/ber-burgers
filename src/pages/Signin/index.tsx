@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react"
+import { Box, Flex, Heading, useToast } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -14,6 +14,9 @@ interface SigninData {
 }
 
 export const Signin = () => {
+
+    const sucessToast = useToast()
+    const errorToast = useToast()
 
     const { signIn } = useAuth()
 
@@ -38,9 +41,22 @@ export const Signin = () => {
     const handleSignin = (data: SigninData) => {
         signIn(data)
         .then((_) => {
+            sucessToast({
+                title: "Account created",
+                description: "You sucefully created your account",
+                status: "success",
+                duration: 5000,
+                isClosable: true
+            })
         })
         .catch((err) => {
-            console.log(err)
+            errorToast({
+                title: "Something is wrong",
+                description: "This account already exists",
+                status: "error",
+                duration: 5000,
+                isClosable: true
+            })
         })
     }
 

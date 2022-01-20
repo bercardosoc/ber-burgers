@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react"
+import { Box, Flex, Heading, useToast } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -9,6 +9,9 @@ import { RiShoppingBag3Line } from "react-icons/ri"
 import { useHistory } from "react-router-dom"
 
 export const Signup = () => {
+
+    const sucessToast = useToast()
+    const errorToast = useToast()
 
     const signUpSchema = yup.object().shape({
         name: yup
@@ -45,12 +48,24 @@ export const Signup = () => {
     const handleSignup = ({ name, email, password, confirmPassword }: SignUpData) => {
         api
         .post("/users", {name, email, password, confirmPassword})
-        .then((response) => {
+        .then((_) => {
             history.push("/signin")
-            //Adicionar Toast
+            sucessToast({
+                title: "Account created",
+                description: "You sucefully created your account",
+                status: "success",
+                duration: 5000,
+                isClosable: true
+            })
         })
         .catch((err) => {
-            //Adicionar Toast
+            errorToast({
+                title: "Something is wrong",
+                description: "This account already exists",
+                status: "error",
+                duration: 5000,
+                isClosable: true
+            })
         })
     }
 
