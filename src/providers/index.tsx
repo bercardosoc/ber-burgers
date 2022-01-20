@@ -3,6 +3,7 @@ import { ReactNode } from "react"
 import { theme } from "../styles/theme"
 import { AuthProvider } from "./Auth"
 import { CartProvider } from "./Cart"
+import { ProductListProvider } from "./ProductsList"
 
 interface AppProviderProps {
     children: ReactNode
@@ -11,9 +12,11 @@ interface AppProviderProps {
 export const AppProvider = ({children}: AppProviderProps) => (
     <ChakraProvider theme={theme} >
         <AuthProvider>
-            <CartProvider>
-                {children}
-            </CartProvider>
+            <ProductListProvider>
+                <CartProvider>
+                    {children}
+                </CartProvider>
+            </ProductListProvider>
         </AuthProvider>
     </ChakraProvider>
 )

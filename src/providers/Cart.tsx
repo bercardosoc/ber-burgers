@@ -35,6 +35,7 @@ const useCart = () => {
 const CartProvider = ({ children }: CartProviderProps ) => {
     
     const [cart, setCart] = useState<Product[]>([])
+    
 
     const addToCart = useCallback(
         async (data: Omit <Product, "id">, accessToken: string) => {

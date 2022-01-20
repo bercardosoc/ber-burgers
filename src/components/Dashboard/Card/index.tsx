@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Text } from "@chakra-ui/react"
+import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react"
 import { AddIcon } from "@chakra-ui/icons"
 import { useCart } from "../../../providers/Cart"
 import { useAuth } from "../../../providers/Auth"
@@ -38,7 +38,7 @@ export const Card = ( product: Product) => {
             borderRadius={"10px"} 
             margin={'1rem'} 
             padding={"1rem"} >
-            <Text>{product.name}</Text>
+            <Heading as="h3" size={"md"} >{product.name}</Heading>
             <Image src={product.img} maxW={"200px"} w="150px" />
             <Text>{product.category}</Text>
             <Text>${product.price.toFixed(2)}</Text>

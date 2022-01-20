@@ -1,17 +1,30 @@
-import { Flex, Image, useDisclosure } from "@chakra-ui/react"
+import { Icon, Input as ChakraInput, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { SearchIcon } from "@chakra-ui/icons"
+import { Flex, Image, Text, useDisclosure } from "@chakra-ui/react"
 import { useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import { BsCart4 } from "react-icons/bs"
 import { FiLogOut } from "react-icons/fi"
 import Badge from "@material-ui/core/Badge";
-import { SearchBar } from "../../components/SearchBar"
 import { Products } from "../../components/Dashboard/Products"
 import { useCart } from "../../providers/Cart"
 import { useAuth } from "../../providers/Auth"
 import { CartModal } from "../../components/CartModal"
 import Woman from "../../assets/woman.png"
+import { Card } from "../../components/Dashboard/Card"
+import { useProductList } from "../../providers/ProductsList"
+
+interface Product {
+    id: number
+    name: string
+    category: string
+    price: number
+    img: string
+}
 
 export const Dashboard = () => {
+
+    const { productList } = useProductList()
 
     const { cart } = useCart()
 
@@ -21,6 +34,17 @@ export const Dashboard = () => {
 
     const { isOpen, onClose, onOpen } = useDisclosure()
 
+    const [filteredProducts, setFilteredProducts] = useState <Product[]> ([])
+
+    const [currentSearch, setCurrentSearch] = useState("")
+
+    const SearchItem = (productName: string) => {
+        const filtered = productList.filter((item) => {
+            return item.name.toLowerCase() === productName.toLocaleLowerCase()
+        })
+        setFilteredProducts(filtered)
+    }
+
     return (
         <Flex flexDirection={"column"} bg={"yellow.100"}>
         <CartModal isOpen={isOpen} onClose={onClose} />
@@ -28,10 +52,16 @@ export const Dashboard = () => {
             bg={"yellow.600"}
             height={"3rem"}
             justifyContent={"flex-end"}
+            boxShadow='md'
         >
            {
                searchBar ? (
-                   <SearchBar/>
+                <InputGroup>
+                <InputRightElement>
+                    <Icon as={SearchIcon} onClick={() => SearchItem(currentSearch)} cursor={"wait"} />
+                </InputRightElement>
+                <ChakraInput type="text" value={currentSearch} onChange={(e) => setCurrentSearch(e.target.value)} width={"95%"} size={"lg"} h="2rem" variant={"outlined"} placeholder="Ex: X-salad" margin={"auto auto"} />
+            </InputGroup>
                ) : (
                 <Flex margin={"1rem"} justifyContent={"space-between"} width={"25%"}>
                 <BsSearch 
@@ -57,11 +87,20 @@ export const Dashboard = () => {
                 '&::-webkit-scrollbar-thumb': {
                   borderRadius: '24px',
                 },
-              }}
-        >
-            <Products/>
+              }}>
+        {
+            filteredProducts.length < 0 || currentSearch === "" ? (
+                <Products/>
+            ) : (
+                filteredProducts.map(item => <Card category={item.category} id={item.id} img={item.img} name={item.name} price={item.price} /> )
+            )
+        }
+            
         </Flex>
-        <Image src={Woman} margin={"0 auto"} />
+        <Flex flexDirection={"column"}>
+            <Image src={Woman} margin={"0 auto"} height={["20rem"]} />
+            <Text textAlign={"center"} >Gratidão por comprar conosco!</Text>
+        </Flex>
         </Flex>
     )
 }

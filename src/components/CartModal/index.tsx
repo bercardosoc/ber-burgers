@@ -27,7 +27,7 @@ export const CartModal = ({isOpen, onClose}: CartModalProps) => {
                 <ModalHeader> Carrinho de compras </ModalHeader>
                 <ModalCloseButton/>
                 {
-                    cart.length > 1 ? (<ModalBody>
+                    cart.length < 1  ? (<ModalBody>
                         <Text>Sua sacola está vazia</Text>
                         <Text>Adicione itens</Text>
                     </ModalBody>) : (
