@@ -75,32 +75,36 @@ export const Dashboard = () => {
                )
            }
         </Flex>
-        <Flex 
-            overflowX={"auto"}
-            css={{
-                '&::-webkit-scrollbar': {
-                  width: '4px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  width: '6px',
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  borderRadius: '24px',
-                },
-              }}>
-        {
-            filteredProducts.length < 0 || currentSearch === "" ? (
-                <Products/>
-            ) : (
-                filteredProducts.map(item => <Card category={item.category} id={item.id} img={item.img} name={item.name} price={item.price} /> )
-            )
-        }
-            
-        </Flex>
-        <Flex flexDirection={"column"}>
-            <Image src={Woman} margin={"0 auto"} height={["20rem"]} />
-            <Text textAlign={"center"} >Gratidão por comprar conosco!</Text>
-        </Flex>
+        <Flex flexDirection={["column", "column", "row", "row"]} >
+            <Flex 
+                maxW={["auto", "auto", "80%", "80%"]}
+                onClick={() => setSearchBar(false)}
+                overflowX={["auto", "auto", "unset", "unset"]}
+                css={{
+                    '&::-webkit-scrollbar': {
+                    width: '4px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                    width: '6px',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '24px',
+                    },
+                }}>
+            {
+                filteredProducts.length < 0 ? (
+                    filteredProducts.map(item => <Card category={item.category} id={item.id} img={item.img} name={item.name} price={item.price} /> )
+                ) : (
+                    <Products/>
+                )
+            }
+                
+            </Flex>
+            <Flex flexDirection={"column"} alignItems={"center"} justifyContent={"center"} >
+                <Text textAlign={"center"} marginTop={"1rem"} >Thanks!</Text>
+                <Image src={Woman} margin={["0 auto", "0 auto", "auto 0", "auto 0"]} height={["20rem", "20rem", "90vh", "90vh"]} />
+            </Flex>
+            </Flex>
         </Flex>
     )
 }

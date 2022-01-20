@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react"
 import { useProductList } from "../../../providers/ProductsList"
 import { Card } from "../Card"
 
@@ -6,7 +7,7 @@ export const Products = () => {
     const { productList } = useProductList()
 
     return (
-        <>
+        <Flex flexWrap={["nowrap", "nowrap", "wrap", "wrap"]} >
         {
             productList.map(item => <Card
             category={item.category}
@@ -17,6 +18,6 @@ export const Products = () => {
             key={item.id}
         />)
         }
-        </>
+        </Flex>
     )
 }

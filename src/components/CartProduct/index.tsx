@@ -22,12 +22,15 @@ export const CartProduct = (item: Product) => {
     }
 
     return (
-        <Flex>
-            <Flex key={item.id} >
-                <Image src={item.img} />
-                <Text>{item.name} </Text>
+        <Flex border="solid 1px" borderColor={"orange.500"} borderRadius={"10px"} width={"90%"} margin="0.3rem auto"  >
+            <Flex alignItems={"center"} key={item.id} >
+                <Image src={item.img} height={"120px"} />
+                <Flex flexDirection={"column"} >
+                    <Text>{item.name} </Text>
+                    <Text>${item.price}</Text>
+                </Flex>
             </Flex>
-            <DeleteIcon onClick={() => handleDelete(item.name)} />
+            <DeleteIcon onClick={() => handleDelete(item.name)} cursor={"pointer"}  marginLeft="auto" marginRight="1rem" marginTop={"1rem"} />
         </Flex>
     )
 }
