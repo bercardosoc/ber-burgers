@@ -22,10 +22,10 @@ export const Dashboard = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     return (
-        <>
+        <Flex flexDirection={"column"} bg={"yellow.100"}>
         <CartModal isOpen={isOpen} onClose={onClose} />
         <Flex
-            bg={"gray.500"}
+            bg={"yellow.600"}
             height={"3rem"}
             justifyContent={"flex-end"}
         >
@@ -61,7 +61,7 @@ export const Dashboard = () => {
         >
             <Products/>
         </Flex>
-        <Image src={Woman} />
-        </>
+        <Image src={Woman} margin={"0 auto"} />
+        </Flex>
     )
 }
