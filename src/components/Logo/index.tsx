@@ -1,7 +1,7 @@
-import { Text } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react"
 
 export const Logo = () => (
-    <Text>
-        Logo
-    </Text>
+        <Heading as="h1" textAlign={"center"} >
+            BerBurgers
+        </Heading>
 )
