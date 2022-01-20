@@ -46,10 +46,11 @@ export const Signup = () => {
         api
         .post("/users", {name, email, password, confirmPassword})
         .then((response) => {
-            console.log(response.data)
+            history.push("/signin")
+            //Adicionar Toast
         })
         .catch((err) => {
-            console.log(err)
+            //Adicionar Toast
         })
     }
 
