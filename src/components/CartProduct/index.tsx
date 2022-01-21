@@ -12,7 +12,11 @@ interface Cart {
     userId: number
 }
 
-export const CartProduct = (item: Cart) => {
+interface CartProductProps {
+    item: Cart
+}
+
+export const CartProduct = ({item}: CartProductProps) => {
 
     const { addQuantity, subQuantity, deleteFromCart } = useCart()
 
