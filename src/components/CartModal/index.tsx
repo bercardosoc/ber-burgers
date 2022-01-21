@@ -9,6 +9,7 @@ import {
     Text,
     Button,
     Box,
+    Flex,
   } from '@chakra-ui/react'
 import { useCart } from '../../providers/Cart'
 import { CartProducts } from '../CartProducts'
@@ -20,7 +21,7 @@ import { CartProducts } from '../CartProducts'
 
 export const CartModal = ({isOpen, onClose}: CartModalProps) => {
     
-    const {cart} = useCart()
+    const {cart, deleteAll} = useCart()
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} >
@@ -34,17 +35,17 @@ export const CartModal = ({isOpen, onClose}: CartModalProps) => {
                         <Text fontWeight={"bold"} >Sua sacola está vazia</Text>
                         <Text>Adicione itens</Text>
                     </Box>) : (
-                        <>
+                        <Flex flexDirection={"column"} alignItems={"center"} >
                             <CartProducts/>
-                            <Button margin={"0.5rem auto"} color={"white"} bgColor={"orange.500"}>Remove all itens</Button>
-                        </>
+                            <Button onClick={deleteAll} margin={"0.5rem auto"} color={"white"} bgColor={"orange.500"}>Remove all itens</Button>
+                        </Flex>
                     )
                 }
                 </ModalBody>
                 <ModalFooter borderRadius={"10px 10px 0px 0px"} bg={"orange.500"}>
                     <Text> Total: $
                     {
-                        cart.reduce((acc, curr) => acc + curr.price, 0)
+                        cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
                     }
                     </Text>
                 </ModalFooter>

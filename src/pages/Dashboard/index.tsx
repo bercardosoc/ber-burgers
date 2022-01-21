@@ -101,15 +101,20 @@ export const Dashboard = () => {
             }
                 
             </Flex>
-            <Flex flexDirection={"column"} alignItems={"center"} justifyContent={"center"} >
+            <Flex flexDirection={"column"} alignItems={"center"} >
                 {
                     filteredProducts.length > 0 ? (
+                        <Flex flexDirection={"column"} alignItems={"center"} justifyContent={"center"} >
                         <Heading as="h4" textAlign={"center"} marginTop={"1rem"}> I found your {currentSearch} </Heading>
+                        <Image src={Woman} margin={["0 auto", "0 auto", "auto 0", "auto 0"]} height={["20rem", "20rem", "90vh", "90vh"]} />
+                        </Flex>
                     ) : (
+                        <Flex flexDirection={"column"} alignItems={"center"} justifyContent={"center"} >
                         <Heading as="h4" textAlign={"center"} marginTop={"1rem"} >We thank you!</Heading>
+                        <Image src={Woman} margin={["0 auto", "0 auto", "auto 0", "auto 0"]} height={["20rem", "20rem", "90vh", "90vh"]} />
+                        </Flex>
                     )
                 }
-                <Image src={Woman} margin={["0 auto", "0 auto", "auto 0", "auto 0"]} height={["20rem", "20rem", "90vh", "90vh"]} />
             </Flex>
             </Flex>
         </Flex>
