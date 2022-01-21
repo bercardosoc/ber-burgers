@@ -42,8 +42,8 @@ export const Signin = () => {
         signIn(data)
         .then((_) => {
             sucessToast({
-                title: "Account created",
-                description: "You sucefully created your account",
+                title: "Logged in",
+                description: "You sucefully logged in",
                 status: "success",
                 duration: 5000,
                 isClosable: true
@@ -52,7 +52,7 @@ export const Signin = () => {
         .catch((err) => {
             errorToast({
                 title: "Something is wrong",
-                description: "This account already exists",
+                description: "Incorrect user or password",
                 status: "error",
                 duration: 5000,
                 isClosable: true
@@ -69,7 +69,7 @@ export const Signin = () => {
         <Flex justifyContent="center" flexDirection={["column", "column", "row-reverse", "row-reverse"]}  >
             <Flex border={"1px solid"} borderColor={"orange.500"} paddingBottom={"1rem"} paddingTop={"1rem"}  marginBottom={"2rem"} justifyContent={"space-around"} width={["auto", "auto", "45%", "45%"]} height={"110px"} margin={"auto 0"} >
                 <Flex borderRadius={"5px"} justifyContent={"center"} alignItems={"center"} width={"75px"} height={"75px"} bg={"orange.100"} ><RiShoppingBag3Line color="red" size={50} /></Flex>
-                <Box width={"70%"} ><span>A vida é como um sanduíche, é preciso recheá-la com os <b>melhores</b> ingredientes </span></Box>
+                <Box width={"70%"} ><span>Life is like a sandwich, you have to fill it with the <b>best</b> ingredients </span></Box>
             </Flex>
             <Flex flexDirection={"column"} width={["auto", "auto", "50%", "50%"]} >
             <Flex 
@@ -77,7 +77,7 @@ export const Signin = () => {
                 justifyContent={"space-around"}
                 marginBottom={"1.5rem"} >
                 <Heading as="h1" >Login</Heading>
-                <span onClick={() => history.push("/")}>Retornar para o Login</span>
+                <span onClick={() => history.push("/")}>Return to signup</span>
             </Flex>
             <SigninForm
                 errors={errors}

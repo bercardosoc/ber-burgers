@@ -36,7 +36,9 @@ export const Card = ( product: Product) => {
             borderColor={"orange.500"}  
             borderRadius={"10px"} 
             margin={'1rem'} 
-            padding={"1rem"} >
+            padding={"1rem"}
+            maxHeight={"350px"}
+        >
             <Heading as="h3" size={"md"} >{product.name}</Heading>
             <Image src={product.img} maxW={"200px"} w={["150px", "150px", "200px", "200px"]} />
             <Text>{product.category}</Text>

@@ -25,10 +25,10 @@ export const SigninForm = ({ handleSignin, errors, register }: SigninProps) => (
         <Input
             {...register("password")}
             error={errors.password}
-            placeholder="Senha"
+            placeholder="Password"
             name="password"
             type="password"
         />
-        <Button colorScheme={"orange"} size={"lg"} type="submit" >Cadastrar</Button>
+        <Button colorScheme={"orange"} size={"lg"} type="submit" >Login</Button>
     </Flex>
 )

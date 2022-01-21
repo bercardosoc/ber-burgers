@@ -71,22 +71,21 @@ export const Signup = () => {
 
     const history = useHistory()
 
-
     return (
         <Flex flexDirection={"column"} bg={"yellow.100"} height={"100vh"} >
         <Logo/>
         <Flex justifyContent="center" flexDirection={["column", "column", "row", "row"]}  >
             <Flex border={"1px solid"} borderColor={"orange.500"} paddingBottom={"1rem"} paddingTop={"1rem"}  marginBottom={"2rem"} justifyContent={"space-around"} width={["auto", "auto", "45%", "45%"]} height={"110px"} margin={"auto 0"} >
                 <Flex borderRadius={"5px"} justifyContent={"center"} alignItems={"center"} width={"75px"} height={"75px"} bg={"orange.100"} ><RiShoppingBag3Line color="red" size={50} /></Flex>
-                <Box width={"70%"} ><span>A vida é como um sanduíche, é preciso recheá-la com os <b>melhores</b> ingredientes </span></Box>
+                <Box width={"70%"} ><span>Life is like a sandwich, you have to fill it with the <b>best</b> ingredients </span></Box>
             </Flex>
             <Flex flexDirection={"column"} width={["auto", "auto", "50%", "50%"]} >
             <Flex 
                 alignItems={"center"} 
                 justifyContent={"space-around"}
                 marginBottom={"1.5rem"} >
-                <Heading as="h1" >Cadastro</Heading>
-                <span onClick={() => history.push("/signin")}>Retornar para o login</span>
+                <Heading as="h1" >Signup</Heading>
+                <span onClick={() => history.push("/signin")}>Return to login</span>
             </Flex>
             <SignupForm
                 errors={errors}

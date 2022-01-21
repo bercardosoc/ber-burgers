@@ -19,7 +19,7 @@ export const SignupForm = ({ handleSignup, errors, register }: SignupProps) => (
         <Input
             {...register("name")}
             error={errors.name}
-            placeholder="Nome"
+            placeholder="Name"
             name="name"
         />
         <Input
@@ -31,17 +31,17 @@ export const SignupForm = ({ handleSignup, errors, register }: SignupProps) => (
         <Input
             {...register("password")}
             error={errors.password}
-            placeholder="Senha"
+            placeholder="Password"
             name="password"
             type="password"
         />
         <Input
             {...register("confirmPassword")}
             error={errors.confirmPassword}
-            placeholder="Confirmar senha"
+            placeholder="Confirm Password"
             name="confirmPassword"
             type="password"
         />
-        <Button colorScheme={"orange"} size={"lg"} type="submit" >Cadastrar</Button>
+        <Button colorScheme={"orange"} size={"lg"} type="submit" >Create my account</Button>
     </Flex>
 )

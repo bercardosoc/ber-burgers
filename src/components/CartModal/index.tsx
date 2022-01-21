@@ -36,7 +36,7 @@ export const CartModal = ({isOpen, onClose}: CartModalProps) => {
                     </Box>) : (
                         <>
                             <CartProducts/>
-                            <Button mt={"0.5rem"} color={"white"} bgColor={"orange.500"}>Remover tudo</Button>
+                            <Button margin={"0.5rem auto"} color={"white"} bgColor={"orange.500"}>Remove all itens</Button>
                         </>
                     )
                 }

@@ -1,4 +1,4 @@
-import { Icon, Input as ChakraInput, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { Heading, Icon, Input as ChakraInput, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { SearchIcon } from "@chakra-ui/icons"
 import { Flex, Image, Text, useDisclosure } from "@chakra-ui/react"
 import { useState } from "react"
@@ -53,6 +53,7 @@ export const Dashboard = () => {
             height={"3rem"}
             justifyContent={"flex-end"}
             boxShadow='md'
+            cursor={"pointer"}
         >
            {
                searchBar ? (
@@ -92,7 +93,7 @@ export const Dashboard = () => {
                     },
                 }}>
             {
-                filteredProducts.length < 0 ? (
+                filteredProducts.length > 0 ? (
                     filteredProducts.map(item => <Card category={item.category} id={item.id} img={item.img} name={item.name} price={item.price} /> )
                 ) : (
                     <Products/>
@@ -101,7 +102,13 @@ export const Dashboard = () => {
                 
             </Flex>
             <Flex flexDirection={"column"} alignItems={"center"} justifyContent={"center"} >
-                <Text textAlign={"center"} marginTop={"1rem"} >Thanks!</Text>
+                {
+                    filteredProducts.length > 0 ? (
+                        <Heading as="h4" textAlign={"center"} marginTop={"1rem"}> I found your {currentSearch} </Heading>
+                    ) : (
+                        <Heading as="h4" textAlign={"center"} marginTop={"1rem"} >We thank you!</Heading>
+                    )
+                }
                 <Image src={Woman} margin={["0 auto", "0 auto", "auto 0", "auto 0"]} height={["20rem", "20rem", "90vh", "90vh"]} />
             </Flex>
             </Flex>
