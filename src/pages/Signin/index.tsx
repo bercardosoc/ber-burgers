@@ -23,11 +23,11 @@ export const Signin = () => {
     const SigninSchema = yup.object().shape({
         email: yup
         .string()
-        .required("E-mail obrigatório")
-        .email("E-mail inválido"),
+        .required("Required field")
+        .email("Invalid e-mail"),
         password: yup
         .string()
-        .required("Senha obrigatória")
+        .required("Required field")
     })
 
     const {

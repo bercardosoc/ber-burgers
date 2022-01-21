@@ -16,18 +16,18 @@ export const Signup = () => {
     const signUpSchema = yup.object().shape({
         name: yup
         .string()
-        .required("Nome obrigatório"),
+        .required("Required field"),
         email: yup
         .string()
-        .required("E-mail obrigatório")
-        .email("E-mail inválido"),
+        .required("Required field")
+        .email("Invalid e-mail"),
         password: yup
         .string()
-        .required("Senha obrigatória"),
+        .required("Required field"),
         confirmPassword: yup
         .string()
-        .required("Confirmação de senha obrigatória")
-        .oneOf([yup.ref("password")], "Senhas diferentes")
+        .required("Required field")
+        .oneOf([yup.ref("password")], "Different passwords")
     })
 
     interface SignUpData {
