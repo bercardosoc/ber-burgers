@@ -1,25 +1,20 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons"
 import { useCart } from "../../providers/Cart";
-import { useAuth } from "../../providers/Auth";
 
-interface Product {
+interface Cart {
     id: number
     name: string
     category: string
     price: number
     img: string
+    quantity: number
+    userId: number
 }
 
-export const CartProduct = (item: Product) => {
+export const CartProduct = (item: Cart) => {
 
-    const { accessToken } = useAuth()
-
-    const { deleteFromCart } = useCart()
-
-    const handleDelete = (index: string) => {
-        deleteFromCart(index, accessToken)
-    }
+    const { addQuantity, subQuantity, deleteFromCart } = useCart()
 
     return (
         <Flex border="solid 1px" borderColor={"orange.500"} borderRadius={"10px"} width={"90%"} margin="0.3rem auto"  >
@@ -28,9 +23,14 @@ export const CartProduct = (item: Product) => {
                 <Flex flexDirection={"column"} >
                     <Text>{item.name} </Text>
                     <Text>${item.price}</Text>
+                    <Text>{item.quantity}</Text>
+                    <Flex>
+                        <button onClick={() => addQuantity(item) } >+</button>
+                        <button onClick={() => subQuantity(item)} >-</button>
+                    </Flex>
                 </Flex>
             </Flex>
-            <DeleteIcon onClick={() => handleDelete(item.name)} cursor={"pointer"}  marginLeft="auto" marginRight="1rem" marginTop={"1rem"} />
+            <DeleteIcon onClick={() => deleteFromCart(item)} cursor={"pointer"}  marginLeft="auto" marginRight="1rem" marginTop={"1rem"} />
         </Flex>
     )
 }

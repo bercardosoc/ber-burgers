@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios"
-import { createContext, ReactNode, useCallback, useContext, useState } from "react"
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react"
 import { api } from "../services/api"
+import { useAuth } from "./Auth"
 
 interface CartProviderProps {
     children: ReactNode
@@ -14,11 +15,27 @@ interface Product {
     img: string
 }
 
+interface Cart {
+    id: number
+    name: string
+    category: string
+    price: number
+    img: string
+    quantity: number
+    userId: number
+}
+
 interface CartContextData {
-    cart: Product[]
+    cart: Cart[]
+    addToCart: (product: Product) => void
+    addQuantity: (product: Cart) => void
+    subQuantity: (product: Cart) => void
+    deleteFromCart: (product: Cart) => void
+    deleteAll: () => void
+    /* cart: Product[]
     addToCart: (data: Omit<Product, "id">, accessToken: string) => Promise<void>
     loadCart: (userId: string, accessToken: string) => Promise<void>
-    deleteFromCart: (itemIndex: string, accessToken: string) => Promise<void>
+    deleteFromCart: (itemIndex: string, accessToken: string) => Promise<void> */
 }
 
 const CartContext = createContext<CartContextData> ({} as CartContextData)
@@ -34,10 +51,82 @@ const useCart = () => {
 
 const CartProvider = ({ children }: CartProviderProps ) => {
     
-    const [cart, setCart] = useState<Product[]>([])
-    
+    const [cart, setCart] = useState<Cart[]>([])
+    const [refresh, setRefresh] = useState(false)
+    const { accessToken, user } = useAuth()
 
-    const addToCart = useCallback(
+    const addToCart = (product: Product) => {
+        if (cart.filter((item) => item.name === product.name).length === 0) {
+            const sendToCart = {...{product}, ...{quantity: 1, userId: user.id }}
+            api
+            .post("/itens", sendToCart, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }) 
+            .then((_) => setRefresh(!refresh))
+        }
+    }
+
+    const addQuantity = (product: Cart) => {
+        product.quantity = product.quantity + 1
+        const sendToCart = {...product}
+        api
+        .patch(`/itens/${product.id}`, sendToCart, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        })
+        .then((_) => setRefresh(!refresh))
+    }
+
+    const subQuantity = (product: Cart) => {
+        if (product.quantity > 1) {
+            product.quantity = product.quantity - 1
+            const sendToCart = {...product}
+            api
+            .patch(`/itens/${product.id}`, sendToCart, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            })
+            .then((_) => setRefresh(!refresh))
+        }
+    }
+
+    const deleteFromCart = (productToBeDeleted: Cart) => {
+        setCart([...cart.filter((item) => item.id !== productToBeDeleted.id)])
+        api 
+        .delete(`/itens/${productToBeDeleted.id}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        })
+        .then((_) => setRefresh(!refresh))
+    }
+
+    const deleteAll = () => {
+        cart.forEach(function(item) {
+            deleteFromCart(item)
+            setCart([])
+        }, 1)
+        setCart([])
+    }
+
+    useEffect(() => {
+        api
+        .get(`itens`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        })
+        .then((response) => {
+            setCart(response.data.filter((item: Cart) => Number(item.userId) === Number(user.id)))
+        })
+        .catch(err => setCart(cart))
+    }, [refresh])
+
+    /* const addToCart = useCallback(
         async (data: Omit <Product, "id">, accessToken: string) => {
             api
             .post("/itens", data, {
@@ -51,9 +140,9 @@ const CartProvider = ({ children }: CartProviderProps ) => {
                 .catch((err) => console.log(err)) 
         },
         []
-    )
+    ) */
 
-    const deleteFromCart = useCallback(
+    /* const deleteFromCart = useCallback(
         async (itemIndex: string, accessToken: string) => {
             await api
             .delete(`/cart/${itemIndex}`, {
@@ -68,9 +157,9 @@ const CartProvider = ({ children }: CartProviderProps ) => {
             .catch((err) => console.log(err))
         },
         [cart]
-    )
+    ) */
 
-    const loadCart = useCallback(async(userId: string, accessToken: string) => {
+    /* const loadCart = useCallback(async(userId: string, accessToken: string) => {
         try {
             const response = await api.get(`/cart?userId=${userId}`, {
                 headers: {
@@ -81,15 +170,17 @@ const CartProvider = ({ children }: CartProviderProps ) => {
         } catch (err) {
             console.log(err)
         }
-    }, [])
+    }, []) */
 
     return (
         <CartContext.Provider
         value={{
             addToCart,
-            cart,
+            addQuantity,
+            cart, 
+            subQuantity,
             deleteFromCart,
-            loadCart,
+            deleteAll,
         }}
         >
             {children}

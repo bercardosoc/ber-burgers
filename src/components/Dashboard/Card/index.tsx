@@ -1,7 +1,6 @@
 import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react"
 import { AddIcon } from "@chakra-ui/icons"
 import { useCart } from "../../../providers/Cart"
-import { useAuth } from "../../../providers/Auth"
 
 interface Product {
     id: number
@@ -13,14 +12,8 @@ interface Product {
 
 export const Card = ( product: Product) => {
 
-    const { accessToken, user } = useAuth()
-
     const { addToCart } = useCart()
 
-    const handleAdd = (data: Product) => {
-        const newItem = {...data, userId: user.id }
-        addToCart(newItem, accessToken)
-    }
 
     return (
         <Flex 
@@ -44,7 +37,7 @@ export const Card = ( product: Product) => {
             <Text>{product.category}</Text>
             <Text>${product.price.toFixed(2)}</Text>
             <Button
-                onClick={() => handleAdd(product)}
+                onClick={() => addToCart(product)}
                 mt={"0.5rem"}
                 rightIcon={<AddIcon width={"0.6rem"} />}
                 color={"white"}
