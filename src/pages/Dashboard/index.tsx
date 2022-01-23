@@ -1,6 +1,6 @@
-import { Heading, Icon, Input as ChakraInput, InputGroup, InputRightElement } from "@chakra-ui/react"
-import { SearchIcon } from "@chakra-ui/icons"
-import { Flex, Image, Text, useDisclosure } from "@chakra-ui/react"
+import { Heading, Icon, Input as ChakraInput, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react"
+import { SearchIcon, ArrowBackIcon } from "@chakra-ui/icons"
+import { Flex, Image, useDisclosure } from "@chakra-ui/react"
 import { useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import { BsCart4 } from "react-icons/bs"
@@ -61,14 +61,17 @@ export const Dashboard = () => {
                 <InputRightElement>
                     <Icon as={SearchIcon} onClick={() => SearchItem(currentSearch)} cursor={"wait"} />
                 </InputRightElement>
-                <ChakraInput type="text" value={currentSearch} onChange={(e) => setCurrentSearch(e.target.value)} width={"95%"} size={"lg"} h="2rem" variant={"outlined"} placeholder="Ex: X-salad" margin={"auto auto"} />
+                <InputLeftElement>
+                    <Icon as={ArrowBackIcon} onClick={() => setSearchBar(false)} />
+                </InputLeftElement>
+                <ChakraInput type="text" value={currentSearch} onChange={(e) => setCurrentSearch(e.target.value)} width={"99%"} size={"lg"} h="2rem" variant={"outlined"} placeholder="Ex: X-salad" margin={"auto auto"} />
             </InputGroup>
                ) : (
                 <Flex margin={"1rem"} justifyContent={"space-between"} width={"25%"}>
                 <BsSearch 
                     onClick={() => setSearchBar(true)}
                 />
-                <Badge color="secondary" badgeContent={cart.length}>
+                <Badge onClick={onOpen} color="secondary" badgeContent={cart.length}>
                     <BsCart4 onClick={onOpen} />{""}
                 </Badge>
                 <FiLogOut onClick={signOut} />
@@ -79,7 +82,6 @@ export const Dashboard = () => {
         <Flex flexDirection={["column", "column", "row", "row"]} >
             <Flex 
                 maxW={["auto", "auto", "80%", "80%"]}
-                onClick={() => setSearchBar(false)}
                 overflowX={["auto", "auto", "unset", "unset"]}
                 css={{
                     '&::-webkit-scrollbar': {

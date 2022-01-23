@@ -72,7 +72,7 @@ export const Signup = () => {
     const history = useHistory()
 
     return (
-        <Flex flexDirection={"column"} bg={"yellow.100"} height={"100vh"} >
+        <Flex flexDirection={"column"} bg={"yellow.100"} height={["125vh", "100vh"]} >
         <Logo/>
         <Flex justifyContent="center" flexDirection={["column", "column", "row", "row"]}  >
             <Flex border={"1px solid"} borderColor={"orange.500"} paddingBottom={"1rem"} paddingTop={"1rem"}  marginBottom={"2rem"} justifyContent={"space-around"} width={["auto", "auto", "45%", "45%"]} height={"110px"} margin={"auto 0"} >
